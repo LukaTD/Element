@@ -1,3 +1,6 @@
 *.o
 *.exe
 *.ps1
+*.dll
+
+GLFW

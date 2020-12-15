@@ -1,16 +1,30 @@
 #include <stdio.h>
+#include <stdlib.h>
+
+#include <glfw3.h>
 
 #include "types.h"
 #include "linear_ops.h"
+#include "window.h"
 
 i32 main()
 {
-	mat3 aa = {
-		4,3.54,43.3,
-		43.54,54.34,34.54,
-		43.54,54.34,34.54,
-	};
+	if(!glfwInit())
+	{
+		printf("GLFW library could not be loaded!");
+		return -1;
+	}
 
-	print_mat3(transpose_mat3(aa));
+	GLFWwindow *win = create_window("Element",1280,720);
+	glfwMakeContextCurrent(win);
+
+	while(!glfwWindowShouldClose(win))
+	{
+		glfwSwapBuffers(win);
+		glfwPollEvents();
+	}
+
+	glfwDestroyWindow(win);
+	glfwTerminate();
 	return 0;
 }

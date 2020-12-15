@@ -85,7 +85,7 @@ vec2 normalize_vec2(const vec2 a)
 
 	if(equal_f32(norm_scalar,0.f))
 	{
-		printf("Zero vector can not be normalized!");
+		printf("Zero vector can not be normalized!\n");
 		return a;
 	}
 	return scalar_mul_vec2(1.f/norm_scalar,a);
@@ -200,7 +200,7 @@ vec3 normalize_vec3(const vec3 a)
 
 	if(equal_f32(norm_scalar,0.f))
 	{
-		printf("Zero vector can not be normalized!");
+		printf("Zero vector can not be normalized!\n");
 		return a;
 	}
 	return scalar_mul_vec3(1.f/norm_scalar,a);
@@ -306,7 +306,7 @@ vec4 normalize_vec4(const vec4 a)
 
 	if(equal_f32(norm_scalar,0.f))
 	{
-		printf("Zero vector can not be normalized!");
+		printf("Zero vector can not be normalized!\n");
 		return a;
 	}
 	return scalar_mul_vec4(1.f/norm_scalar,a);
