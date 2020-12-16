@@ -6,6 +6,7 @@
 #include "types.h"
 #include "linear_ops.h"
 #include "window.h"
+#include "input.h"
 
 i32 main()
 {
@@ -15,11 +16,22 @@ i32 main()
 		return -1;
 	}
 
+	glfwWindowHint(GLFW_RESIZABLE,false);
 	GLFWwindow *win = create_window("Element",1280,720);
+
+
+	mouse_t mouse;
+	init_mouse(win,&mouse);
+
+	keyboard_t keyboard;
+	init_keyboard(win,&keyboard);
+
 	glfwMakeContextCurrent(win);
 
 	while(!glfwWindowShouldClose(win))
 	{
+		get_mouse_input(&mouse);
+		get_keyboard_input(&keyboard);
 		glfwSwapBuffers(win);
 		glfwPollEvents();
 	}
