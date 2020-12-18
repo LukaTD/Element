@@ -37,21 +37,28 @@ typedef struct key_t
 	bool toggle;
 } key_t;
 
-#define num_keys 1u // number of keybinds used 
+#define num_keys 2u // number of keybinds used 
 typedef struct keyboard_t
 {
 	GLFWwindow *win;
 	key_t keys[num_keys];
 } keyboard_t;
 
+void init_key(key_t *key, const i32 keycode, const bool toggle)
+{
+	key->keycode = keycode;
+	key->toggle = toggle;
+
+	if(toggle)
+		key->prev_state = GLFW_RELEASE;
+}
 
 void init_keyboard(GLFWwindow *win, keyboard_t *keyboard)
 {
 	keyboard->win = win; // assign keyboard to a window
 
-	keyboard->keys[0].keycode = GLFW_KEY_X;
-	keyboard->keys[0].prev_state = GLFW_RELEASE;
-	keyboard->keys[0].toggle = true;
+	init_key(&keyboard->keys[0],GLFW_KEY_X,true);
+	init_key(&keyboard->keys[1],GLFW_KEY_C,false);
 }
 
 
@@ -73,7 +80,8 @@ void get_keyboard_input(keyboard_t *keyboard)
 		}
 		else
 		{
-			printf("b");
+			if(curr_state == GLFW_PRESS)
+				printf("b");
 		}
 	}
 }
