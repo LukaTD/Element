@@ -29,6 +29,13 @@ void print_vec2(const vec2 a)
 		   a.x,a.y);
 }
 
+bool equal_vec2(const vec2 a,const vec2 b)
+{
+	for(u32 i = 0;i < size_vec2;i++)
+		if(!equal_f32(a.data[i],b.data[i]))
+			return false;
+	return true;
+}
 vec2 zeros_vec2(void)
 {
 	vec2 ret;
@@ -132,6 +139,14 @@ void print_vec3(const vec3 a)
 		   "[%10.3f]\n"
 		   "[%10.3f]\n",
 		   a.x,a.y,a.z);
+}
+
+bool equal_vec3(const vec3 a,const vec3 b)
+{
+	for(u32 i = 0;i < size_vec3;i++)
+		if(!equal_f32(a.data[i],b.data[i]))
+			return false;
+	return true;
 }
 
 vec3 zeros_vec3(void)
@@ -248,6 +263,14 @@ void print_vec4(const vec4 a)
 		   "[%10.3f]\n"
 		   "[%10.3f]\n",
 		   a.x,a.y,a.z,a.w);
+}
+
+bool equal_vec4(const vec4 a,const vec4 b)
+{
+	for(u32 i = 0;i < size_vec4;i++)
+		if(!equal_f32(a.data[i],b.data[i]))
+			return false;
+	return true;
 }
 
 vec4 zeros_vec4(void)

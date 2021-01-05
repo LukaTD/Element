@@ -32,6 +32,10 @@ i32 main()
 	{
 		get_mouse_input(&mouse);
 		get_keyboard_input(&keyboard);
+		process_mouse_input(&mouse);
+		process_keyboard_input(&keyboard);
+
+
 		glfwSwapBuffers(win);
 		glfwPollEvents();
 	}

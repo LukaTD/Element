@@ -30,6 +30,16 @@ void get_mouse_input(mouse_t *mouse)
 	//printf("dx: %.0f, dy: %.0f\n",mouse->delta_pos.data[0],mouse->delta_pos.data[1]);
 }
 
+void process_mouse_input(mouse_t *mouse)
+{
+	const vec2 zero = zeros_vec2();
+	if(!equal_vec2(mouse->delta_pos,zero))
+	{
+		printf("Mouse moved in direction:\n");
+		print_vec2(mouse->delta_pos);
+	}
+}
+
 typedef struct key_t
 {
 	i32 keycode;
@@ -37,11 +47,12 @@ typedef struct key_t
 	bool toggle;
 } key_t;
 
-#define num_keys 2u // number of keybinds used 
+#define NUM_KEYS 2u // number of keybinds used, may be replaced later with a file with keybinds
 typedef struct keyboard_t
 {
 	GLFWwindow *win;
-	key_t keys[num_keys];
+	key_t keys[NUM_KEYS];
+	bool pressed[NUM_KEYS];
 } keyboard_t;
 
 void init_key(key_t *key, const i32 keycode, const bool toggle)
@@ -59,12 +70,14 @@ void init_keyboard(GLFWwindow *win, keyboard_t *keyboard)
 
 	init_key(&keyboard->keys[0],GLFW_KEY_X,true);
 	init_key(&keyboard->keys[1],GLFW_KEY_C,false);
-}
 
+	for(u32 i = 0;i < NUM_KEYS;i++)
+		keyboard->pressed[i] = false;
+}
 
 void get_keyboard_input(keyboard_t *keyboard)
 {
-	for(u32 i = 0;i < num_keys;i++)
+	for(u32 i = 0;i < NUM_KEYS;i++)
 	{
 		i32 curr_state = glfwGetKey(keyboard->win,keyboard->keys[i].keycode);
 
@@ -73,15 +86,23 @@ void get_keyboard_input(keyboard_t *keyboard)
 			if(curr_state != keyboard->keys[i].prev_state)
 			{
 				if(curr_state == GLFW_PRESS)
-					printf("a");
-
+					keyboard->pressed[i] = true;
+					
 				keyboard->keys[i].prev_state = curr_state;
 			}
+			else
+				keyboard->pressed[i] = false;
 		}
 		else
-		{
-			if(curr_state == GLFW_PRESS)
-				printf("b");
-		}
+			keyboard->pressed[i] = curr_state == GLFW_PRESS ? true : false;
+	}
+}
+
+void process_keyboard_input(keyboard_t *keyboard /* possible additional parameters*/)
+{
+	for(u32 i = 0;i < NUM_KEYS;i++)
+	{
+		if(keyboard->pressed[i])
+			printf("x");
 	}
 }
